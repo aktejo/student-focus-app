@@ -20,14 +20,14 @@ export const Atmosphere: React.FC = () => {
   const [completedExpanded, setCompletedExpanded] = useState(false);
 
   const [lofiSource, setLofiSource] = useState(() => {
-    return localStorage.getItem('student_focus_lofi_source') || 'EWrX250Zhko';
+    return localStorage.getItem('student_focus_lofi_source') || 'X4VbdwhkE10';
   });
   const [isEditingSource, setIsEditingSource] = useState(false);
   const [tempSource, setTempSource] = useState(lofiSource);
 
   const extractYoutubeId = (urlOrId: string) => {
     const trimmed = urlOrId.trim();
-    if (!trimmed) return 'EWrX250Zhko';
+    if (!trimmed) return 'X4VbdwhkE10';
     
     if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
       return trimmed;
