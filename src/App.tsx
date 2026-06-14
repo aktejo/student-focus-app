@@ -62,7 +62,7 @@ const AppContent: React.FC = () => {
   return (
     <div className="app-container">
       {/* Cinematic Landscape Background */}
-      <BackgroundImageLayer manualSeed={bgSeed} onRefresh={handleBgRefresh} />
+      <BackgroundImageLayer manualSeed={bgSeed} />
 
       {/* Floating Controls Layer */}
       <div style={{ position: 'absolute', top: 24, left: 24, right: 24, zIndex: 50, pointerEvents: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

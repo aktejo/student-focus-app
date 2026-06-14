@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getLandscapeForDate, LANDSCAPE_URLS_365 } from '../lib/backgroundImages';
-import { RefreshCw } from 'lucide-react';
 
 interface BackgroundImageLayerProps {
   manualSeed: number | null;
-  onRefresh: () => void;
 }
 
-export const BackgroundImageLayer: React.FC<BackgroundImageLayerProps> = ({ manualSeed, onRefresh }) => {
+export const BackgroundImageLayer: React.FC<BackgroundImageLayerProps> = ({ manualSeed }) => {
   const [bgA, setBgA] = useState('');
   const [bgB, setBgB] = useState('');
   const [activeLayer, setActiveLayer] = useState<'A' | 'B'>('A');
@@ -77,38 +75,6 @@ export const BackgroundImageLayer: React.FC<BackgroundImageLayerProps> = ({ manu
       
       {/* Radial vignette for cinematic depth */}
       <div className="background-vignette" />
-
-      {/* Subtle manual background refresh button in bottom right corner */}
-      <button
-        onClick={onRefresh}
-        style={{
-          position: 'fixed',
-          bottom: 16,
-          right: 16,
-          zIndex: 5,
-          cursor: 'pointer',
-          padding: 6,
-          borderRadius: '50%',
-          background: 'rgba(8, 13, 23, 0.4)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          color: 'var(--text-muted)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'color 0.2s, background-color 0.2s'
-        }}
-        title="Refresh landscape"
-        className="bg-refresh-btn"
-      >
-        <RefreshCw size={12} />
-      </button>
-
-      <style>{`
-        .bg-refresh-btn:hover {
-          color: var(--accent-cyan) !important;
-          background: rgba(8, 13, 23, 0.6) !important;
-        }
-      `}</style>
     </div>
   );
 };
