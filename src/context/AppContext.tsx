@@ -747,22 +747,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Quick Capture Parser
   const parseQuickCapture = (input: string) => {
     const trimmed = input.trim();
-    if (!trimmed) return { type: 'note' as const, message: '' };
+    if (!trimmed) return { type: 'task' as const, message: '' };
 
     const spaceIndex = trimmed.indexOf(' ');
     if (spaceIndex === -1) {
-      // Single word, create a note
-      addNote(trimmed);
-      return { type: 'note' as const, message: `Captured note: "${trimmed}"` };
+      // Single word, create a task by default
+      const task = addTask(trimmed, { source: 'quick-capture' });
+      return { type: 'task' as const, message: `Created task: "${task.title}"` };
     }
 
     const prefix = trimmed.substring(0, spaceIndex).toLowerCase();
     const content = trimmed.substring(spaceIndex + 1).trim();
 
-    if (prefix === 'task') {
-      const task = addTask(content, { source: 'quick-capture' });
-      return { type: 'task' as const, message: `Created task: "${task.title}"` };
-    } else if (prefix === 'note') {
+    if (prefix === 'note') {
       addNote(content);
       return { type: 'note' as const, message: `Captured note: "${content}"` };
     } else if (prefix === 'resource') {
@@ -772,7 +769,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const task = addTask(`Exam Prep: ${content}`, { type: 'exam-prep', priority: 'high', source: 'quick-capture' });
       return { type: 'task' as const, message: `Created exam task: "${task.title}"` };
     } else if (prefix === 'course') {
-      // Suggest opening course editor modal, or create a mock one.
       const words = content.split(' ');
       const code = words[0].toUpperCase();
       const name = words.slice(1).join(' ') || code;
@@ -784,10 +780,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         links: [],
       });
       return { type: 'course' as const, message: `Added Course: ${course.displayName} (${course.name})` };
+    } else if (prefix === 'task') {
+      const task = addTask(content, { source: 'quick-capture' });
+      return { type: 'task' as const, message: `Created task: "${task.title}"` };
     } else {
-      // If prefix is not recognized, save as note with full input
-      addNote(trimmed);
-      return { type: 'note' as const, message: `Captured note: "${trimmed}"` };
+      // If prefix is not recognized, create a task with the entire input string
+      const task = addTask(trimmed, { source: 'quick-capture' });
+      return { type: 'task' as const, message: `Created task: "${task.title}"` };
     }
   };
 

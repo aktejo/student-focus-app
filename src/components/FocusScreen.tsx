@@ -12,6 +12,8 @@ export const FocusScreen: React.FC<FocusScreenProps> = ({ onRefreshBg }) => {
   const {
     tasks,
     courses,
+    notes,
+    deleteNote,
     activeTaskId,
     timerState,
     timerSecondsLeft,
@@ -342,7 +344,7 @@ export const FocusScreen: React.FC<FocusScreenProps> = ({ onRefreshBg }) => {
               <form onSubmit={handleQuickCaptureSubmit} className="quick-capture-input-wrapper">
                 <input
                   type="text"
-                  placeholder="Capture note or 'task ...'"
+                  placeholder="Capture task or 'note ...'"
                   value={quickCaptureInput}
                   onChange={e => setQuickCaptureInput(e.target.value)}
                   className="quick-capture-input"
@@ -354,6 +356,63 @@ export const FocusScreen: React.FC<FocusScreenProps> = ({ onRefreshBg }) => {
                   <CheckCircle size={12} /> {captureMessage}
                 </div>
               )}
+            </div>
+
+            {/* Notes Box */}
+            <div className="glass-panel" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column' }}>
+              <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 10 }}>
+                Notes Box
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 120, overflowY: 'auto', paddingRight: 2 }}>
+                {notes.map(note => (
+                  <div
+                    key={note.id}
+                    className="note-item-row"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      padding: '8px 10px',
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      borderRadius: 10,
+                      fontSize: '0.75rem',
+                      color: 'rgba(255, 255, 255, 0.85)',
+                      transition: 'background 0.2s',
+                    }}
+                  >
+                    <span style={{ flex: 1, whiteSpace: 'pre-wrap', wordBreak: 'break-word', lineHeight: 1.3 }}>
+                      {note.content}
+                    </span>
+                    <button
+                      onClick={() => deleteNote(note.id)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: 'var(--text-muted)',
+                        cursor: 'pointer',
+                        padding: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'color 0.2s',
+                        outline: 'none',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-red)'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                      title="Delete note"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                ))}
+                {notes.length === 0 && (
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-very-muted)', textAlign: 'center', padding: '16px 0', fontStyle: 'italic' }}>
+                    No notes captured yet. Type 'note [text]' in Quick Capture above.
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Warning popups */}
