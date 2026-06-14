@@ -303,6 +303,7 @@ export const FocusScreen: React.FC<FocusScreenProps> = ({ onRefreshBg }) => {
       <div
         className={`left-rail ${leftRailCollapsed ? 'collapsed' : ''}`}
         style={{
+          width: leftRailCollapsed ? 60 : 320,
           opacity: isFocusing ? 0.35 : 1,
           transition: 'all 0.4s ease',
           height: '100%',
