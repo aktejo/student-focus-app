@@ -361,7 +361,7 @@ export const FocusScreen: React.FC<FocusScreenProps> = ({ onRefreshBg }) => {
             {/* Notes Box */}
             <div className="glass-panel" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column' }}>
               <h4 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 10 }}>
-                Notes Box
+                Notes
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: 120, overflowY: 'auto', paddingRight: 2 }}>
                 {notes.map(note => (
